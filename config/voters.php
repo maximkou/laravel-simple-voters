@@ -1,0 +1,22 @@
+<?php
+/**
+ * @author Maksim Khodyrev<maximkou@gmail.com>
+ * 12.05.17
+ */
+return [
+    /**
+     * Available out of the box strategies: affirmative, unanimous, consensus.
+     * You can use custom voting strategy by registering service with name 'simple_voters.strategies.{strategy_name}'
+     */
+    'strategy' => 'unanimous',
+
+    /**
+     * If pro and contra votes count is equal, or all voters abstain, used this value
+     */
+    'is_granted_by_default' => true,
+
+    /**
+     * List of Voter classes
+     */
+    'voters' => [],
+];

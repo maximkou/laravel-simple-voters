@@ -1,0 +1,30 @@
+{
+    "name": "maximkou/laravel-simple-voters",
+    "description": "Symfony-like voters system to check row based access.",
+    "type": "library",
+    "require": {
+        "php": ">=7.0",
+        "illuminate/support": "5.0.x|5.1.x|5.2.x|5.3.x|5.4.x"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^6.1",
+        "mockery/mockery": "^0.9.9"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Maksim Khodyrev",
+            "email": "maximkou@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "autoload": {
+        "psr-4": {
+            "Maximkou\\SimpleVoters\\": "src/",
+            "Maximkou\\SimpleVoters\\Tests\\": "tests/"
+        },
+        "files": [
+            "src/helpers.php"
+        ]
+    }
+}
