@@ -7,6 +7,9 @@
 namespace Maximkou\SimpleVoters;
 
 use Illuminate\Support\ServiceProvider;
+use Maximkou\SimpleVoters\GrantStrategies\Affirmative;
+use Maximkou\SimpleVoters\GrantStrategies\Consensus;
+use Maximkou\SimpleVoters\GrantStrategies\Unanimous;
 use Maximkou\SimpleVoters\Services\Access;
 
 class SimpleVotersServiceProvider extends ServiceProvider
@@ -23,6 +26,16 @@ class SimpleVotersServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(
             __DIR__ . '/../config/voters.php', 'voters'
         );
+
+        $this->app->bind('simple_voters.strategies.unanimous', function ($app, $args) {
+            return new Unanimous($args['voters']);
+        });
+        $this->app->bind('simple_voters.strategies.affirmative', function ($app, $args) {
+            return new Affirmative($args['voters']);
+        });
+        $this->app->bind('simple_voters.strategies.consensus', function ($app, $args) {
+            return new Consensus($args['voters']);
+        });
 
         $this->app->singleton('simple_voters.checker', function ($app) {
             $strategy = $app['config']->get('voters.strategy', 'unanimous');

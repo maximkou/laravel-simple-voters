@@ -20,7 +20,7 @@ abstract class AbstractVoter implements Voter
     public function vote($actions, $object, $user) : int
     {
         $actions = array_filter((array)$actions, function ($action) use ($object) {
-            return $this->supports($object, $action);
+            return $this->supports($action, $object);
         });
 
         if (empty($actions)) {

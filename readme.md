@@ -36,7 +36,7 @@ Add facade alias to your `config/app.php` (optional):
 
 Publish package config (optional):
 ```bash
-php artisan vendor:publish config
+php artisan vendor:publish --provider="Maximkou\SimpleVoters\SimpleVotersServiceProvider"
 ```
 
 ### Configuration:
@@ -63,6 +63,7 @@ php artisan vendor:publish config
 
 ### Creating Voter
 Voter must implement `Maximkou\SimpleVoters\Contracts\Voter` or extend `Maximkou\SimpleVoters\AbstractVoter` class.
+Then add your voter to config.
 
 Example:
 ```php
