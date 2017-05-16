@@ -1,7 +1,10 @@
 # Laravel 5 Voters System
+<a href="https://packagist.org/packages/maximkou/laravel-simple-voters"><img src="https://poser.pugx.org/maximkou/laravel-simple-voters/v/stable.svg" alt="Latest Stable Version"></a>
+<a href="https://packagist.org/packages/maximkou/laravel-simple-voters"><img src="https://poser.pugx.org/maximkou/laravel-simple-voters/license.svg" alt="License"></a>
+
 This package provide Symfony Security Voters like system, which allow you to check object-based access.
 
-### Using examples
+## Using examples
 Check, is current user can edit specific Post:
 ```php
 is_granted('edit', $post) // return true or false
@@ -16,7 +19,7 @@ is_granted(['read', 'write'], $post, $user) // return true or false
 Access::isGranted(['read', 'write'], $post, $user)
 ```
 
-### Installation:
+## Installation:
 Require dependency using composer:
 ```bash
 composer require maximkou/laravel-simple-voters ^0.1
@@ -39,7 +42,7 @@ Publish package config (optional):
 php artisan vendor:publish --provider="Maximkou\SimpleVoters\SimpleVotersServiceProvider"
 ```
 
-### Configuration:
+## Configuration:
 ```php
 // file config/voters.php
 /**
@@ -61,7 +64,7 @@ php artisan vendor:publish --provider="Maximkou\SimpleVoters\SimpleVotersService
 ],
 ```
 
-### Creating Voter
+## Creating Voter
 Voter must implement `Maximkou\SimpleVoters\Contracts\Voter` or extend `Maximkou\SimpleVoters\AbstractVoter` class.
 Then add your voter to config.
 
@@ -92,3 +95,23 @@ class PostVoter extends AbstractVoter
     }
 }
 ```
+
+## Using in non-laravel context
+For using in non-laravel context, you only must create custom `AuthenticatedUserResolver`, for resolving current user instance.
+
+Example:
+```php
+use Maximkou\SimpleVoters\Services\Access;
+use Maximkou\SimpleVoters\GrantStrategies;
+
+$accessChecker = new Access(
+    new GrantStrategies\Affirmative($listVoters), // choose voting strategy
+    new MyAuthUserResolver() // pass your user resolver
+);
+
+$accessChecker->isGranted('action', $object); // true/false?
+```
+
+## License
+
+This package is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).

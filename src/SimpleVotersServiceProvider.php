@@ -45,9 +45,12 @@ class SimpleVotersServiceProvider extends ServiceProvider
                 throw new \Exception("Voting strategy service $strategy is not registered.");
             }
 
-            return new Access($app->make($strategy, [
-                'voters' => $this->prepareVoters($app['config']->get('voters.voters', []))
-            ]));
+            return new Access(
+                $app->make($strategy, [
+                    'voters' => $this->prepareVoters($app['config']->get('voters.voters', []))
+                ]),
+                $app->make($app['config']->get('voters.user_resolver'))
+            );
         });
     }
 

@@ -7,6 +7,7 @@
 namespace Maximkou\SimpleVoters\Services;
 
 use Illuminate\Support\Facades\Auth;
+use Maximkou\SimpleVoters\Contracts\AuthenticatedUserResolver;
 use Maximkou\SimpleVoters\Contracts\GrantStrategy;
 
 /**
@@ -22,12 +23,19 @@ class Access
     private $strategy;
 
     /**
+     * @var AuthenticatedUserResolver
+     */
+    private $userResolver;
+
+    /**
      * Access constructor.
      * @param GrantStrategy $strategy
+     * @param AuthenticatedUserResolver $userResolver
      */
-    public function __construct(GrantStrategy $strategy)
+    public function __construct(GrantStrategy $strategy, AuthenticatedUserResolver $userResolver)
     {
         $this->strategy = $strategy;
+        $this->userResolver = $userResolver;
     }
 
     /**
@@ -39,7 +47,7 @@ class Access
     public function isGranted($actions, $object = null, $user = null) : bool
     {
         if (null === $user) {
-            $user = Auth::user();
+            $user = $this->userResolver->resolve();
         }
 
         return $this->strategy->isGranted($actions, $object, $user);

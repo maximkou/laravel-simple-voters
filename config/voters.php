@@ -16,6 +16,11 @@ return [
     'is_granted_by_default' => true,
 
     /**
+     * Class for resolve current authenticated user, by default, using Laravel Auth Manager
+     */
+    'user_resolver' => 'Maximkou\SimpleVoters\UserResolvers\LaravelAuthResolver',
+
+    /**
      * List of Voter classes
      */
     'voters' => [],
